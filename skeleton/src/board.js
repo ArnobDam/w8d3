@@ -147,6 +147,39 @@ Board.prototype._positionsToFlip = function (pos, color, dir, piecesToFlip) {
  * color being flipped.
  */
 Board.prototype.validMove = function (pos, color) {
+  //make a directions constant that includes all 8 directions
+  //iterate through the constant
+  //check positions to flip taking in the pos, color arguments, the the dir
+  //if get pos funcitn === empty array, then continue
+  //else, it returns true
+  //return false outside
+
+  const directions = [
+    [0,1],
+    [1,0],
+    [0,-1],
+    [-1,0],
+    [1,-1],
+    [-1,1],
+    [1,1],
+    [-1,-1]
+  ];
+
+  if (this.isOccupied(pos)){
+    return false;
+  }
+
+  for (let i = 0; i < directions.length; i++){
+    if (this._positionsToFlip(pos, color, directions[i]).length === 0){
+      // debugger
+      continue;
+    } else {
+      // debugger
+      return true;
+    }
+  }
+
+  return false
 };
 
 /**
@@ -156,6 +189,7 @@ Board.prototype.validMove = function (pos, color) {
  * Throws an error if the position represents an invalid move.
  */
 Board.prototype.placePiece = function (pos, color) {
+  
 };
 
 /**
