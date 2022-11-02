@@ -266,6 +266,23 @@ Board.prototype.isOver = function () {
  * Prints a string representation of the Board to the console.
  */
 Board.prototype.print = function () {
+  // for (let i = 0; i < this.grid.length; i++) {
+  //   console.log(this.grid[i]);
+  // }
+  let showGrid = new Array(8).fill().map(() => new Array(8));
+
+  for (let i = 0; i < this.grid.length; i++) {
+    for (let j = 0; j < this.grid.length; j++) {
+      if (this.isOccupied([i, j])) {
+        showGrid[i][j] = this.grid[i][j].toString();
+      } else {
+        showGrid[i][j] = "_";
+      }
+    }
+  }
+
+  console.log(showGrid.join("\n"))
+
 };
 
 
