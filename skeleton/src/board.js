@@ -116,12 +116,12 @@ Board.prototype._positionsToFlip = function (pos, color, dir, piecesToFlip) {
     cont = false;
     // debugger
     // console.log(currentPos);
-    if (!this.isOccupied(cPos)) {
+    if (!this.isValidPos(cPos)) {
+      return [];
+    } else if (!this.isOccupied(cPos)) {
       return [];
     } else if (this.isMine(cPos, color)) {
       return piecesArray;
-    } else if (!this.isValidPos(cPos)) {
-      return [];
     } else {
       piecesArray.push(cPos);
       cont = true;
@@ -165,6 +165,7 @@ Board.prototype.validMove = function (pos, color) {
     [-1, -1]
   ];
 
+  // debugger
   if (this.isOccupied(pos)) {
     return false;
   }
@@ -220,6 +221,7 @@ Board.prototype.placePiece = function (pos, color) {
  */
 Board.prototype.validMoves = function (color) {
   let validMovesArray = [];
+  // debugger
   for (let i = 0; i < this.grid.length; i++) {
     for (let j = 0; j < this.grid.length; j++) {
       if (this.validMove([i, j], color)) {
@@ -227,7 +229,7 @@ Board.prototype.validMoves = function (color) {
       }
     }
   }
-  debugger
+  // debugger
   return validMovesArray;
 };
 
@@ -235,7 +237,7 @@ Board.prototype.validMoves = function (color) {
  * Checks if there are any valid moves for the given color.
  */
 Board.prototype.hasMove = function (color) {
-  if (this.validMoves.length === 0) {
+  if (this.validMoves(color).length === 0) {
     return false;
   } else {
     return true;
@@ -249,6 +251,12 @@ Board.prototype.hasMove = function (color) {
  * the black player are out of moves.
  */
 Board.prototype.isOver = function () {
+  if (!this.hasMove("black") || !this.hasMove("white")) {
+    return true;
+  } else {
+    return false;
+  }
+
 };
 
 
