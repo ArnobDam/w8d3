@@ -155,22 +155,22 @@ Board.prototype.validMove = function (pos, color) {
   //return false outside
 
   const directions = [
-    [0,1],
-    [1,0],
-    [0,-1],
-    [-1,0],
-    [1,-1],
-    [-1,1],
-    [1,1],
-    [-1,-1]
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+    [-1, -1]
   ];
 
-  if (this.isOccupied(pos)){
+  if (this.isOccupied(pos)) {
     return false;
   }
 
-  for (let i = 0; i < directions.length; i++){
-    if (this._positionsToFlip(pos, color, directions[i]).length === 0){
+  for (let i = 0; i < directions.length; i++) {
+    if (this._positionsToFlip(pos, color, directions[i]).length === 0) {
       // debugger
       continue;
     } else {
@@ -189,7 +189,29 @@ Board.prototype.validMove = function (pos, color) {
  * Throws an error if the position represents an invalid move.
  */
 Board.prototype.placePiece = function (pos, color) {
-  
+  const directions = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+    [-1, -1]
+  ];
+
+  if (!this.validMove(pos, color)) {
+    throw new Error('Invalid move!');
+  } else {
+    this.grid[pos[0]][pos[1]] = new Piece(color);
+    for (let i = 0; i < directions.length; i++) {
+      let postionsArray = this._positionsToFlip(pos, color, directions[i]);
+      for (let j = 0; j < postionsArray.length; j++) {
+        // debugger
+        this.grid[postionsArray[j][0]][postionsArray[j][1]].color = color;
+      }
+    }
+  }
 };
 
 /**
@@ -197,12 +219,27 @@ Board.prototype.placePiece = function (pos, color) {
  * the Board for a given color.
  */
 Board.prototype.validMoves = function (color) {
+  let validMovesArray = [];
+  for (let i = 0; i < this.grid.length; i++) {
+    for (let j = 0; j < this.grid.length; j++) {
+      if (this.validMove([i, j], color)) {
+        validMovesArray.push([i, j]);
+      }
+    }
+  }
+  debugger
+  return validMovesArray;
 };
 
 /**
  * Checks if there are any valid moves for the given color.
  */
 Board.prototype.hasMove = function (color) {
+  if (this.validMoves.length === 0) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 
