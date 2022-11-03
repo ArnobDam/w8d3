@@ -1,0 +1,29 @@
+/* PHASE 2: Thumbs */
+
+.profile-friends.group {
+    display: block;
+}
+
+.profile-friends>li {
+    float: left;
+    padding-bottom: 10px;
+}
+
+.profile-friends>li:nth-child(3n) {
+    padding-left: 10px;
+}
+
+.profile-friends>li:nth-child(3n-1) {
+    margin-left: 10px;
+    /* margin-right: 10px; */
+}
+
+.thumb {
+    /* display: flex; */
+    display: block;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 58px;
+    height: 58px;
+}
